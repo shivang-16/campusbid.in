@@ -12,8 +12,13 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        sans: ["Poppins", "Arial", "Helvetica", "sans-serif"], // Default sans-serif fonts
+        fredoka: ["Fredoka One", "sans-serif"], // Add Fredoka One to the font family
+      },
     },
   },
   plugins: [],
 };
+
 export default config;
