@@ -10,7 +10,7 @@ const LandingPage: React.FC = () => {
       <Navbar />
       {/* Hero Section */}
       <main className="flex flex-col items-center py-20 px-6 text-center pt-36 h-full justify-center">
-        <div className="bg-teal-50 text-sm text-teal-500 font-medium px-4 py-1 rounded-full mb-4">
+        <div className="bg-teal-50 text-sm text-teal-500 font-medium px-4 py-1 rounded-full mb-4"> 
           Join now to find skilled professionals for your next project →
         </div>
         <h1 className="text-2xl md:text-5xl sm:text-3xl font-bold text-teal-500 mb-2">
