@@ -1,29 +1,50 @@
 "use client";
-import { FaCheckCircle } from 'react-icons/fa';
-import { FaXTwitter } from "react-icons/fa6";
-import React from 'react';
-import Navbar from '@/components/Navbar';
+import { FaCheckCircle } from "react-icons/fa";
 import { FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
+import React, { useEffect } from "react";
+import Navbar from "@/components/Navbar";
+import { FaXTwitter } from "react-icons/fa6";
+import AOS from "aos";
+import "aos/dist/aos.css"; // Import AOS styles
 
 const LandingPage: React.FC = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+      once: true,
+    });
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-gradient-to-r from-purple-100 via-white to-teal-100 font-sans pt-10">
+    <div className="min-h-screen flex flex-col justify-between bg-gradient-to-r from-purple-50 via-white to-teal-50 font-sans relative overflow-hidden">
+      {/* Background Grid Pattern */}
+      <div className="absolute top-0 left-0 w-full h-full z-0 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-teal-300 via-white to-teal-200 opacity-25"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-200 rounded-full blur-xl opacity-20 animate-pulse"></div>
+        <div className="absolute top-2/3 left-1/3 w-80 h-80 bg-gradient-to-br from-teal-500 to-purple-500 rounded-full opacity-30 animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-teal-300 opacity-15 rounded-full"></div>
+        <div className="absolute top-40 left-1/4 w-48 h-48 bg-teal-100 opacity-30 rounded-lg animate-pulse"></div>
+        <div className="absolute top-60 right-1/4 w-56 h-56 bg-teal-400 opacity-25 rounded-xl animate-pulse"></div>
+      </div>
+
       {/* Navbar */}
       <Navbar />
-
-      {/* Hero Section */}
-      <main className="flex flex-col items-center px-3 md:px-6 lg:px-12 text-center h-full justify-center">
-        <div className='w-full h-screen px-3 md:px-6 lg:px-12 flex flex-col text-center items-center justify-center'>
-          <div className="bg-teal-50 text-xs md:text-sm text-teal-500 font-medium px-3 md:px-4 py-1 rounded-full mb-4">
+      <main className="relative flex flex-col items-center px-4 md:px-8 lg:px-16 h-full justify-center z-10">
+        <section
+          className="w-full h-screen flex flex-col items-center justify-center text-center space-y-6"
+          data-aos="fade-up"
+        >
+          <div className="bg-teal-50 text-xs md:text-[14px] text-teal-600 font-medium px-6 py-2 rounded-full shadow-lg mb-6 animate__animated animate__fadeIn">
             Join now to find skilled professionals for your next project →
           </div>
 
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-teal-600 mb-4">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-teal-700 mb-4">
             The work you want, <span className="text-gray-800">the bids you need</span>.
           </h1>
 
-          <p className="text-gray-700 max-w-md md:max-w-2xl mb-6 md:mb-8 text-sm md:text-lg text-justify md:text-center">
-            CampusBid connects people looking to get projects done with skilled individuals ready to work. From small tasks to major projects, our platform makes it easy to collaborate, bid, and achieve more together.
+          <p className="text-gray-600 max-w-lg md:max-w-2xl text-sm md:text-lg leading-relaxed text-justify md:text-center animate__animated animate__fadeIn mt-6">
+            CampusBid connects project owners with skilled professionals, making it easy to collaborate, bid, and achieve great results—whether for small tasks or large projects.
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center mt-6 md:mt-8 space-y-4 sm:space-y-0 sm:space-x-4">
@@ -44,8 +65,6 @@ const LandingPage: React.FC = () => {
               Start Bidding — it’s free
             </a>
           </div>
-
-          {/* Features */}
           <div className="flex flex-col md:flex-row justify-center mt-6 md:mt-8 text-xs md:text-sm mb-6 md:mb-8 text-gray-600 space-y-2 md:space-y-0 md:space-x-4">
             {[
               "Fully secured and reliable",
@@ -58,12 +77,14 @@ const LandingPage: React.FC = () => {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Why Choose CampusBid Section */}
+        {/* Features Section */}
         <section className='mb-[110px] md:mb-[200px] flex items-start'>
           <div className="max-w-5xl mx-auto text-center px-3 md:px-0">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-700 mb-4">Why Choose CampusBid?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-700 mb-4">
+            Why Choose <span className="text-teal-600">CampusBid?</span>
+            </h2>
             <p className="text-gray-500 mb-6 md:mb-10 text-sm md:text-base">
               Discover the benefits of working with CampusBid for all your freelancing needs.
             </p>
@@ -108,21 +129,40 @@ const LandingPage: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="w-full py-4 md:py-6 px-3 md:px-6 text-center bg-gradient-to-r from-purple-100 via-white to-teal-100 text-gray-700 font-medium">
-        <div className="text-lg md:text-xl text-teal-600 font-bold mb-4">Follow us:</div>
-        <div className="flex justify-center items-center space-x-4 md:space-x-6 mb-4">
-          <a href="https://x.com/campus_bid" aria-label="X (Twitter)" target="_blank" className="text-teal-600 hover:text-teal-700">
-            <FaXTwitter className="w-8 h-8 md:w-8 md:h-8 p-1 bg-gray-100 rounded-full shadow-lg border border-gray-300" />
-          </a>
-          <a href="https://www.linkedin.com/company/campusbid/" target="_blank" aria-label="LinkedIn" className="text-teal-600 hover:text-teal-700">
-            <FaLinkedinIn className="w-8 h-8 md:w-8 md:h-8 p-1 bg-gray-100 rounded-full shadow-lg border border-gray-300" />
-          </a>
-          <a href="https://www.instagram.com/campusbid.in/" aria-label="Instagram" target="_blank" className="text-teal-600 hover:text-teal-700">
-            <FaInstagram className="w-8 h-8 md:w-8 md:h-8 p-1 bg-gray-100 rounded-full shadow-lg border border-gray-300" />
-          </a>
-        </div>
-        <div className="text-xs md:text-sm text-gray-600 mb-2">
+      <footer className="w-full py-8 px-8 lg:px-16 z-50">
+        <div className="flex flex-col items-center space-y-4">
+          <h4 className="text-teal-800 font-bold text-xl md:text-2xl">
+            Follow Us:
+          </h4>
+          <div className="flex space-x-6 mb-4">
+            <a
+              href="https://x.com/campus_bid"
+              target="_blank"
+              aria-label="Twitter"
+              className="text-teal-800 hover:text-teal-900 transition duration-300"
+            >
+              <FaXTwitter className="w-6 h-6" />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/campusbid/"
+              target="_blank"
+              aria-label="LinkedIn"
+              className="text-teal-800 hover:text-teal-900 transition duration-300"
+            >
+              <FaLinkedinIn className="w-6 h-6" />
+            </a>
+            <a
+              href="https://www.instagram.com/campusbid.in/"
+              target="_blank"
+              aria-label="Instagram"
+              className="text-teal-800 hover:text-teal-900 transition duration-300"
+            >
+              <FaInstagram className="w-6 h-6" />
+            </a>
+          </div>
+          <div className="text-xs md:text-sm text-gray-600 mb-2">
           All rights reserved to CampusBid, Inc.
+        </div>
         </div>
       </footer>
     </div>
