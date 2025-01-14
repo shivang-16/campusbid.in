@@ -29,12 +29,12 @@ export const HeroHighlight = ({
   return (
     <div
       className={cn(
-        "relative h-auto flex items-center  dark:bg-black justify-center w-full group",
+        "relative h-auto flex items-center dark:bg-black justify-center w-full group",
         containerClassName
       )}
       onMouseMove={handleMouseMove}
     >
-      <div className="absolute inset-0 dark:bg-dot-thick-neutral-800  pointer-events-none" />
+      <div className="absolute inset-0 dark:bg-dot-thick-neutral-800 pointer-events-none" />
       <motion.div
         className="pointer-events-none bg-dot-thick-indigo-500 dark:bg-dot-thick-indigo-500   absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100"
         style={{
