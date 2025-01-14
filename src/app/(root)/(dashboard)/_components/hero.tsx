@@ -1,21 +1,43 @@
+'use client'
 import Image from "next/image";
 import WorldMap from "@/components/ui/world-map";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { HeroHighlightDemo } from "./timeline";
 import { FiArrowRight } from "react-icons/fi";
+import { useRef } from "react";
+import { joinWaitingList } from "@/actions/user_action";
+import toast from "react-hot-toast";
 
 export default function Home() {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleWait = async (email: string) => {
+    const res = await joinWaitingList(email);
+    if (res.success) {
+      toast.success("You are all set to go!");
+    } else {
+      console.log(res);
+      toast.error(res.message || "Something went wrong");
+    }
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (inputRef.current) {
+      handleWait(inputRef.current.value);
+      inputRef.current.value = "";
+    }
+  };
 
   return (
     <div className="relative bg-gradient-to-b from-gray-900 via-black to-gray-900 text-white h-auto flex flex-col font-poppins overflow-hidden">
       {/* Shooting Stars Animation */}
-      <div className="absolute inset-0 z-1 h-[calc(100vh+100px)]"> {/* Extend the height of the background effect */}
+      <div className="absolute inset-0 z-1 h-[calc(100vh+100px)]">
         <BackgroundBeams />
       </div>
 
       {/* Navbar */}
       <header className="w-full flex items-center justify-between py-5 px-4 lg:px-8 bg-opacity-80 backdrop-blur-sm z-10 relative">
-        {/* Logo */}
         <div className="flex items-center gap-3">
           <Image
             src="/assets/favicon.ico"
@@ -34,8 +56,6 @@ export default function Home() {
             hello@campusbid.in
           </span>
         </button>
-
-
       </header>
 
       {/* Hero Section */}
@@ -44,26 +64,29 @@ export default function Home() {
           The College Network <br />
           to Chill, Share & Explore!
         </h1>
-        <p className="text-gray-400 text-base md:text-lg mt-4 ">
+        <p className="text-gray-400 text-base md:text-lg mt-4">
           Showcase your work, launch side projects, find jobs, and connect with incredible people.
         </p>
 
         {/* Search Bar */}
         <div className="mt-10 flex justify-center items-center">
-          <div className="relative w-full flex max-w-lg">
+          <form className="relative w-full flex max-w-lg" onSubmit={handleFormSubmit}>
             <span className="absolute top-1/2 transform -translate-y-1/2 left-4 text-teal-500 font-medium text-[12px] md:text-base">
               campusbid.in/
             </span>
             <input
               type="text"
+              ref={inputRef}
               className="w-full py-3 pl-28 sm:pl-44 pr-14 bg-gray-800 text-gray-200 rounded-full text-[13px] placeholder:text-[13px] md:text-base md:placeholder:text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
               placeholder="eg. example@gmail.com"
             />
-            <button className="absolute top-1/2 transform text-sm md:text-base -translate-y-1/2 right-0 bg-teal-500 text-white hover:bg-teal-600 flex items-center justify-center gap-2 px-[14px] md:px-5 py-[14px] font-extrabold rounded-full shadow-md transition">
+            <button
+              type="submit"
+              className="absolute top-1/2 transform text-sm md:text-base -translate-y-1/2 right-0 bg-teal-500 text-white hover:bg-teal-600 flex items-center justify-center gap-2 px-[14px] md:px-5 py-[14px] font-extrabold rounded-full shadow-md transition"
+            >
               <FiArrowRight className="text-lg" />
             </button>
-
-          </div>
+          </form>
         </div>
       </main>
 
