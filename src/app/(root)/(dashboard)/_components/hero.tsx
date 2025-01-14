@@ -96,7 +96,8 @@ export default function Home() {
           <WorldMap />
         </div>
       </div>
-
+      
+      
       <div className="relative w-full h-auto rounded-lg shadow-lg overflow-hidden">
         <HeroHighlightDemo />
       </div>
