@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion"; // Correct import
 import DottedMap from "dotted-map";
 import Image from "next/image";
 import { useTheme } from "next-themes";
@@ -14,7 +14,7 @@ interface MapProps {
   lineColor?: string;
 }
 
-export default function WorldMap({
+const WorldMap = ({
   dots = [
     {
       start: {
@@ -64,7 +64,7 @@ export default function WorldMap({
     },
   ],
   lineColor = "#0ea5e9", // Default line color in teal
-}: MapProps) {
+}: MapProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const map = new DottedMap({ height: 100, grid: "diagonal" });
 
@@ -74,7 +74,7 @@ export default function WorldMap({
     radius: 0.22,
     color: theme === "light" ? "#00000040" : "#FFFFFF40", // Light color for dark theme
     shape: "circle",
-    backgroundColor: theme === "light" ? "white" : "#2d2d2d", // Dark background for dark theme
+    backgroundColor: theme === "light" ? "white" : "#1f2937", // Dark background for dark theme
   });
 
   const projectPoint = (lat: number, lng: number) => {
@@ -124,7 +124,7 @@ export default function WorldMap({
                   pathLength: 1,
                 }}
                 transition={{
-                  duration: 2, // Increased animation duration for smoother effect
+                  duration: 3,
                   delay: 0.5 * i,
                   ease: "easeOut",
                   repeat: Infinity, // Loop animation infinitely
@@ -215,4 +215,6 @@ export default function WorldMap({
       </svg>
     </div>
   );
-}
+};
+
+export default WorldMap;

@@ -1,11 +1,17 @@
 import Image from "next/image";
 import WorldMap from "@/components/ui/world-map";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export default function Home() {
   return (
-    <div className="relative bg-gradient-to-b from-gray-900 via-black to-gray-800 text-white min-h-screen flex flex-col font-poppins">
+    <div className="relative bg-gradient-to-b from-gray-900 via-black to-gray-800 text-white min-h-screen flex flex-col font-poppins overflow-hidden">
+      {/* Shooting Stars Animation */}
+      <div className="absolute inset-0 z-50">
+        <BackgroundBeams/>
+      </div>
+
       {/* Navbar */}
-      <header className="w-full flex items-center justify-between py-6 px-8 shadow-lg bg-opacity-80 backdrop-blur-sm z-10">
+      <header className="w-full flex items-center justify-between py-6 px-8 shadow-lg bg-opacity-80 backdrop-blur-sm z-10 relative">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <Image
@@ -15,29 +21,17 @@ export default function Home() {
             height={40}
             className="rounded-full cursor-pointer"
           />
-          <div className="text-gray-100 text-2xl font-bold">
+          <div className="text-gray- text-2xl font-bold">
             CampusBid
           </div>
         </div>
-
-        {/* Navigation */}
-        {/* <nav className="flex items-center space-x-8">
-          <a href="#" className="text-lg hover:text-teal-400">Scroll</a>
-          <a href="#" className="text-lg hover:text-teal-400">Jobs</a>
-          <a href="#" className="text-lg hover:text-teal-400">Spotlight</a>
-          <div className="flex space-x-4">
-            <button className="px-6 py-2 border border-gray-700 text-sm rounded-lg text-white hover:bg-gray-700">Log in</button>
-            <button className="px-6 py-2 bg-teal-300 text-sm text-black rounded-lg">Create Profile</button>
-          </div>
-        </nav> */}
         <a href="mailto:hello@campusbid.in" className="text-lg text-gray-300 hover:text-teal-400">
           hello@campusbid.in
         </a>
-
       </header>
 
       {/* Hero Section */}
-      <main className="text-center mt-28 mb-16">
+      <main className="text-center mt-28 mb-16 z-10 relative">
         <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-purple-500">
           The Professional Network <br />
           to Show & Tell Your Work!
@@ -65,7 +59,7 @@ export default function Home() {
       </main>
 
       {/* WorldMap Section */}
-      <div className="mt-16 px-4 sm:px-8 md:px-16 lg:px-72">
+      <div className="mt-10 px-4 sm:px-8 md:px-16 lg:px-72 z-10 relative">
         <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] rounded-lg shadow-lg overflow-hidden">
           <WorldMap />
         </div>
