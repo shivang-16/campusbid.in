@@ -2,7 +2,7 @@ import Image from "next/image";
 import WorldMap from "@/components/ui/world-map";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Timeline } from "@/components/ui/timeline";
-import { HeroHighlightDemo } from "./highlight";
+import { HeroHighlightDemo } from "./timeline";
 
 export default function Home() {
 
