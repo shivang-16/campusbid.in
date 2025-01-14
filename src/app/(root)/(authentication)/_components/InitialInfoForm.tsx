@@ -6,12 +6,12 @@ export default function Home() {
   return (
     <div className="relative bg-gradient-to-b from-gray-900 via-black to-gray-800 text-white min-h-screen flex flex-col font-poppins overflow-hidden">
       {/* Shooting Stars Animation */}
-      <div className="absolute inset-0 z-50">
+      <div className="absolute inset-0 z-1">
         <BackgroundBeams/>
       </div>
 
       {/* Navbar */}
-      <header className="w-full flex items-center justify-between py-6 px-8 shadow-lg bg-opacity-80 backdrop-blur-sm z-10 relative">
+      <header className="w-full flex items-center justify-between py-5 px-8 bg-opacity-80 backdrop-blur-sm z-10 relative">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <Image
@@ -21,7 +21,7 @@ export default function Home() {
             height={40}
             className="rounded-full cursor-pointer"
           />
-          <div className="text-gray- text-2xl font-bold">
+          <div className="text-gray-300 text-2xl font-bold">
             CampusBid
           </div>
         </div>
