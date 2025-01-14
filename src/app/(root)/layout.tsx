@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "CampusBid | Initial Info",
+  title: "CampusBid",
   description:
-    "Get Work Done, One Bid at a Time – Connect, Collaborate, and Achieve with CampusBid!",
+    "The College Network to Chill, Share & Explore!",
 };
 
 

@@ -33,8 +33,8 @@ export default function Home() {
       {/* Hero Section */}
       <main className="text-center mt-28 mb-16 z-10 relative">
         <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-purple-500">
-          The Professional Network <br />
-          to Show & Tell Your Work!
+          The College Network <br />
+          to Chill, Share & Explore!
         </h1>
         <p className="text-gray-400 text-lg mt-4">
           Showcase your work, launch side projects, find jobs, and connect with incredible people.
