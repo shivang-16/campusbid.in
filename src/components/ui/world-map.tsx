@@ -74,7 +74,7 @@ const WorldMap = ({
     radius: 0.22,
     color: theme === "light" ? "#00000040" : "#FFFFFF40", // Light color for dark theme
     shape: "circle",
-    backgroundColor: theme === "light" ? "white" : "#1f2937", // Dark background for dark theme
+    backgroundColor: theme === "light" ? "white" : "#0b131e", // Dark background for dark theme
   });
 
   const projectPoint = (lat: number, lng: number) => {
