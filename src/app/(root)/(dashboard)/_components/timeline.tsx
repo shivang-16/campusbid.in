@@ -213,7 +213,9 @@ export function HeroHighlightDemo() {
                 }}
                 className="text-2xl  md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white w-full leading-relaxed lg:leading-snug text-center mx-auto "
             >
-                <Timeline data={data} />
+                <div className="relative w-full">
+                    <Timeline data={data} />
+                </div>
                 <div className="relative w-full h-auto overflow-hidden">
                     <TypewriterEffectSmoothDemo />
                 </div>

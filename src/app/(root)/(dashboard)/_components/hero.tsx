@@ -50,7 +50,10 @@ export default function Home() {
             CampusBid
           </div>
         </div>
-        <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+        <button
+          onClick={() => window.location.href = "mailto:hello@campusbid.in"}
+          className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+        >
           <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#5eead4_0%,#393BB2_50%,#a855f7_100%)]" />
           <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-gray-900 px-3 py-0.5 md:py-1 text-sm lg:text-base font-medium text-white backdrop-blur-3xl">
             hello@campusbid.in
@@ -96,8 +99,8 @@ export default function Home() {
           <WorldMap />
         </div>
       </div>
-      
-      
+
+
       <div className="relative w-full h-auto rounded-lg shadow-lg overflow-hidden">
         <HeroHighlightDemo />
       </div>
