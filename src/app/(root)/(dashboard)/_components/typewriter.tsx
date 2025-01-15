@@ -7,16 +7,14 @@ export function TypewriterEffectSmoothDemo() {
         [
             { text: "Connect", className: "text-gray-300" },
             { text: "with", className: "text-gray-300" },
-            { text: "global", className: "text-gray-300" },
             { text: "professionals", className: "text-gray-300" },
             { text: "on", className: "text-gray-300" },
             { text: "CampusBid.", className: "text-teal-500" },
         ],
         [
             { text: "Spill", className: "text-gray-300" },
-            { text: "your", className: "text-gray-300" },
             { text: "ideas", className: "text-gray-300" },
-            { text: "and", className: "text-gray-300" },
+            { text: "&", className: "text-gray-300" },
             { text: "connect", className: "text-gray-300" },
             { text: "with", className: "text-gray-300" },
             { text: "peers", className: "text-gray-300" },
@@ -60,7 +58,7 @@ export function TypewriterEffectSmoothDemo() {
             <div>
                 <button
                     onClick={scrollToTop}
-                    className="w-35 h-10 sm:w-40 sm:h-10 rounded-xl mt-1 bg-transparent hover:bg-teal-400 hover:cursor-pointer hover:text-gray-700 transition-all duration-400 delay-400 border-[1px] border-gray-200 text-gray-300 border-transparent text-sm sm:text-base font-medium"
+                    className="w-35 h-10 sm:w-40 sm:h-10 rounded-xl mt-1 bg-transparent hover:bg-teal-400 hover:cursor-pointer hover:text-gray-700 transition-all duration-400 delay-400 border-[1px] border-gray-200 text-gray-300 border-transparent text-xs sm:text-base font-medium"
                 >
                     Join Now
                 </button>

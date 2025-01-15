@@ -54,9 +54,7 @@ export const TypewriterEffect = ({
                 <motion.span
                   initial={{}}
                   key={`char-${index}`}
-                  className={cn(
-                    `dark:text-white text-black opacity-0 hidden`
-                  )}
+                  className={cn(`dark:text-white text-black opacity-0 invisible`)}
                 >
                   {char}
                 </motion.span>
@@ -138,7 +136,7 @@ export const TypewriterEffectSmooth = ({
   };
 
   return (
-    <div className={cn("flex space-x-1 my-6", className)}>
+    <div className={cn("flex space-x-1 my-6 px-2", className)}>
       <motion.div
         className="overflow-hidden pb-2"
         initial={{
@@ -154,7 +152,7 @@ export const TypewriterEffectSmooth = ({
         }}
       >
         <div
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold"
+          className="text-base sm:text-2xl md:text-3xl lg:text-5xl font-extrabold"
           style={{
             whiteSpace: "nowrap",
           }}
