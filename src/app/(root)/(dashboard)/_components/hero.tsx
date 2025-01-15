@@ -85,7 +85,7 @@ export default function Home() {
             />
             <button
               type="submit"
-              className="absolute top-1/2 transform text-sm md:text-base -translate-y-1/2 right-0 bg-teal-500 text-white hover:bg-teal-600 flex items-center justify-center gap-2 px-[14px] md:px-5 py-[14px] font-extrabold rounded-full shadow-md transition"
+              className="absolute top-1/2 transform text-sm md:text-base -translate-y-1/2 right-0 bg-transparent text-white hover:bg-teal-700 flex items-center justify-center gap-2 px-[14px] md:px-5 py-[14px] font-extrabold rounded-full hover:shadow-xl transition"
             >
               <FiArrowRight className="text-lg" />
             </button>

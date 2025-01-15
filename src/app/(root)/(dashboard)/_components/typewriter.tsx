@@ -9,7 +9,7 @@ export function TypewriterEffectSmoothDemo() {
             { text: "with", className: "text-gray-300" },
             { text: "professionals", className: "text-gray-300" },
             { text: "on", className: "text-gray-300" },
-            { text: "CampusBid.", className: "text-teal-500" },
+            { text: "CampusBid.", className: "text-teal-600" },
         ],
         [
             { text: "Spill", className: "text-gray-300" },
@@ -17,16 +17,14 @@ export function TypewriterEffectSmoothDemo() {
             { text: "&", className: "text-gray-300" },
             { text: "connect", className: "text-gray-300" },
             { text: "with", className: "text-gray-300" },
-            { text: "peers", className: "text-gray-300" },
-            { text: "at", className: "text-gray-300" },
-            { text: "CampusBid.", className: "text-teal-500" },
+            { text: "peers.", className: "text-teal-600" },
         ],
         [
             { text: "Secure", className: "text-gray-300" },
             { text: "freelancing", className: "text-gray-300" },
             { text: "projects", className: "text-gray-300" },
             { text: "with", className: "text-gray-300" },
-            { text: "CampusBid.", className: "text-teal-500" },
+            { text: "CampusBid.", className: "text-teal-600" },
         ],
     ];
 
@@ -49,8 +47,8 @@ export function TypewriterEffectSmoothDemo() {
 
     return (
         <div className="flex flex-col items-center justify-center h-[40rem]">
-            <p className="text-gray-300 text-xs sm:text-base mb-4 transition-opacity duration-500">
-                Your journey to growth and enjoyment begins here
+            <p className="text-gray-300 text-xs sm:text-base sm:mb-4 font-light transition-opacity duration-500">
+                Your journey to growth begins here
             </p>
             <div className="mt-2 text-clip">
                 <TypewriterEffectSmooth key={currentPhrase} words={phrases[currentPhrase]} />
@@ -58,7 +56,7 @@ export function TypewriterEffectSmoothDemo() {
             <div>
                 <button
                     onClick={scrollToTop}
-                    className="w-35 h-10 sm:w-40 sm:h-10 rounded-xl mt-1 bg-transparent hover:bg-teal-400 hover:cursor-pointer hover:text-gray-700 transition-all duration-400 delay-400 border-[1px] border-gray-200 text-gray-300 border-transparent text-xs sm:text-base font-medium"
+                    className="px-5 py-1 sm:px-8 sm:py-1.5 rounded-lg sm:mt-1 bg-transparent hover:bg-teal-400 hover:cursor-pointer hover:text-gray-700 transition-all duration-400 delay-400 border border-gray-300 hover:border-none text-gray-300 text-xs sm:text-base font-medium"
                 >
                     Join Now
                 </button>
