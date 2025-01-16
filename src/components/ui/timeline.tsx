@@ -38,14 +38,14 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         {data.map((item, index) => (
           <div
             key={index}
-            className={`flex justify-start ${index!=0 ? "pt-10 md:pt-40" : "pt-9 md:pt-20"}  md:gap-10`}
+            className={`flex justify-start ${index!=0 ? "pt-10 md:pt-40" : "pt-9 md:pt-20"} gap-3 lg:gap-7`}
           >
             <div className="sticky  flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
               <div className="hidden md:block h-10 absolute left-3 md:left-3 w-10 rounded-full bg-gray-800 dark:bg-gray-900 md:flex items-center justify-center shadow-md">
                 <div className="h-4 w-4 rounded-full bg-gray-500 dark:bg-gray-700 border-2 border-gray-700 dark:border-gray-600" />
               </div>
 
-              <h3 className="hidden md:block text-base sm:text-xl md:pl-20 md:text-3xl font-semibold md:font-bold text-transparent bg-gradient-to-r from-teal-300 via-gray-400 to-purple-200 bg-clip-text">
+              <h3 className="hidden md:block text-base sm:text-xl md:text-2xl md:pl-20 lg:text-3xl font-semibold md:font-bold text-transparent bg-gradient-to-r from-teal-300 via-gray-400 to-purple-200 bg-clip-text">
                 {item.title}
               </h3>
 
