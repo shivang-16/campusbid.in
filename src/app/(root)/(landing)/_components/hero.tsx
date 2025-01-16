@@ -26,7 +26,8 @@ export default function Home() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (inputRef.current) {
       handleWait(inputRef.current.value);
     }
