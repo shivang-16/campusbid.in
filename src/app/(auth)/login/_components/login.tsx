@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FaEye, FaGoogle } from 'react-icons/fa';
 import Image from 'next/image';
 import { FcGoogle } from "react-icons/fc";
+import GoogleLoginButton from '../../_components/GoogleLoginButton';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -63,13 +64,14 @@ const LoginPage: React.FC = () => {
               The College Network to Chill, Share & Explore!
             </p>
           </div>
-          <button
+          <GoogleLoginButton />
+          {/* <button
             type="button"
             className="flex text-xs items-center justify-center w-full py-2 mt-2 bg-white border rounded-sm hover:shadow-sm hover:bg-gray-50 transition-all transform hover:scale-102"
           >
             <FcGoogle className="mr-3 text-red-500" />
             Login with Google
-          </button>
+          </button> */}
           <div className="flex items-center justify-between mt-1">
             <span className="border-b w-1/5 lg:w-1/4"></span>
             <span className="text-[9px] text-center text-gray-500 uppercase">

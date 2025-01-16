@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import StoreProvider from "@/app/StoreProvider";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { getUser } from "@/actions/user_action";
 
 
 const geistSans = Geist({
@@ -20,11 +23,13 @@ export const metadata: Metadata = {
     "The College Network to Chill, Share & Explore!",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getUser();
+
   return (
     <html lang="en">
       <head>
@@ -33,7 +38,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+         <StoreProvider
+          user={user?.user ?? null}
+        >
+          <GoogleOAuthProvider
+            clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
+          >
+        <div>
+              <main className="h-main-height">{children}</main>
+            </div>
+        </GoogleOAuthProvider>
+        </StoreProvider>  
         <Toaster />
       </body>
     </html>
