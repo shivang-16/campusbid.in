@@ -1,7 +1,12 @@
+"use client"
+
+import React, { useState, useRef, useEffect } from "react";
 import { BsThreeDots } from 'react-icons/bs';
 import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai';
 import { IoEyeSharp } from 'react-icons/io5';
 import { MdVerified } from "react-icons/md";
+import { CgMore } from "react-icons/cg";
+import { FaCrown } from "react-icons/fa6";
 
 
 // Define type for the post
@@ -115,50 +120,100 @@ const posts: Post[] = [
 ];
 
 
-const PostCard: React.FC<PostCardProps> = ({ post }) => (
-    <div className={`${post.bgColor} rounded-xl p-6`}>
-        <div className="flex justify-between items-center mb-4">
-            <div className="flex items-center">
-                <div className="relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-black font-bold mr-3" style={{ fontSize: "1rem" }}>
-                    {post.name[0].toUpperCase()}
-                    <MdVerified className="absolute bottom-0 left-7 text-blue-500 text-base" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', borderRadius:"100%" }} />
+const PostCard: React.FC<PostCardProps> = ({ post }) => {
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setIsMenuOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    return (
+        <div className={`${post.bgColor} rounded-xl p-6`}>
+            <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center">
+                    <div
+                        className="relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-black font-bold mr-3"
+                        style={{ fontSize: "1rem" }}
+                    >
+                        {post.name[0].toUpperCase()}
+                        <FaCrown
+                            className="absolute bottom-0 left-7 text-yellow-400 text-base"
+                        />
+                    </div>
+                    <div>
+                        <h3 className="font-bold">{post.name}</h3>
+                        <p className="text-gray-400 text-xs">{post.timeAgo}</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 className="font-bold">{post.name}</h3>
-                    <p className="text-gray-400 text-xs">{post.timeAgo}</p>
+                <div className="relative" ref={menuRef}>
+                    <button
+                        className="text-gray-600 text-xl hover:bg-gray-200 transition delay-75 rounded-full p-1"
+                        onClick={() => setIsMenuOpen((prev) => !prev)}
+                    >
+                        <CgMore />
+                    </button>
+                    {isMenuOpen && (
+                        <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-50">
+                            <ul className="py-0.5">
+                                <li className="px-4 py-2 font-medium text-sm hover:bg-gray-100 cursor-pointer">
+                                    View Profile
+                                </li>
+                                <li className="px-4 py-2 font-medium text-sm hover:bg-gray-100 cursor-pointer">
+                                    Delete
+                                </li>
+                                <li className="px-4 py-2 font-medium text-sm hover:bg-gray-100 cursor-pointer">
+                                    Report
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </div>
-            <BsThreeDots className="text-gray-600 text-xl" />
-        </div>
-        <p className="mb-4 font-medium">{post.text}</p>
-        <div className="grid grid-cols-3 gap-2 mb-4">
-            {post.images.map((image, index) => (
-                <img
-                    key={index}
-                    src={image}
-                    alt={`Post ${index + 1}`}
-                    className="rounded-lg h-52 w-full object-cover"
-                />
-            ))}
-        </div>
-        <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-4">
-                <div className="flex items-center text-gray-600">
-                    <AiOutlineHeart className="mr-1" /> {post.likes}
-                </div>
-                <div className="flex items-center text-gray-600">
-                    <AiOutlineComment className="mr-1" /> {post.comments}
-                </div>
-                <div className="flex items-center text-gray-600">
-                    <span className="mr-1"><IoEyeSharp /></span> {post.views}
-                </div>
+            <p className="mb-4 font-medium">{post.text}</p>
+            <div className="grid grid-cols-3 gap-2 mb-4">
+                {post.images.map((image, index) => (
+                    <img
+                        key={index}
+                        src={image}
+                        alt={`Post ${index + 1}`}
+                        className="rounded-lg h-52 w-full object-cover"
+                    />
+                ))}
             </div>
-            <button className="bg-pink-400 text-white text-sm font-semibold px-3 py-1 rounded-2xl">
-                🔥Woow!!!
-            </button>
+            <div className="flex justify-between items-center">
+                <div className="flex items-center space-x-4">
+                    <div className="flex items-center text-gray-600">
+                        <AiOutlineHeart className="mr-1" /> {post.likes}
+                    </div>
+                    <div className="flex items-center text-gray-600">
+                        <AiOutlineComment className="mr-1" /> {post.comments}
+                    </div>
+                    <div className="flex items-center text-gray-600">
+                        <span className="mr-1">
+                            <IoEyeSharp />
+                        </span>{" "}
+                        {post.views}
+                    </div>
+                </div>
+                <button className="bg-pink-400 text-white text-sm font-semibold px-3 py-1 rounded-2xl">
+                    🔥Woow!!!
+                </button>
+            </div>
+            
         </div>
-    </div>
-);
+    );
+};
+
 
 const PostList: React.FC = () => (
     <>

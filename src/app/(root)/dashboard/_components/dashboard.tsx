@@ -6,6 +6,8 @@ import { FaPalette, FaMusic, FaUtensils, FaMountain } from 'react-icons/fa';
 import LeftNavbar from './leftnavbar';
 import RightSideBar from './rightsidebar';
 import PostList from './postslist';
+import ShareSomething from './writepost';
+
 
 const DashboardPage = () => {
   return (
@@ -13,7 +15,7 @@ const DashboardPage = () => {
       <div className="grid grid-cols-12 gap-4">
         <LeftNavbar />
         <main className="col-span-6 ml-5 relative left-[265px]">
-        <section className="bg-white bg-opacity-80 backdrop-blur-xl fixed z-50 w-[572px] flex items-center justify-between pt-6 pb-2 px-6 mb-6 ">
+          <section className="bg-white bg-opacity-80 backdrop-blur-xl fixed z-50 w-[572px] flex items-center justify-between pt-6 pb-2 px-6 mb-6 ">
             <h2 className="text-xl font-bold">Feeds</h2>
             <div className="flex justify-between font-semibold gap-4 items-center text-sm">
               <button className="text-gray-400 hover:text-blue-600">Recents</button>
@@ -23,6 +25,11 @@ const DashboardPage = () => {
           </section>
           <div className="space-y-6 pb-6 pt-20">
             <PostList />
+
+            <ShareSomething/>
+
+
+
           </div>
         </main>
         <RightSideBar />
