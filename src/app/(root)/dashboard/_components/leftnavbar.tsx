@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {
   FaUserFriends,
@@ -9,8 +10,13 @@ import {
 import Image from 'next/image';
 import { GrGroup } from "react-icons/gr";
 import { FaLaptopCode, FaArrowRight } from 'react-icons/fa';
+import { useAppSelector } from '@/redux/hooks';
 
 const LeftNavbar = () => {
+
+  const user = useAppSelector(state => state.user.user);
+  console.log(user, "here is the user")
+
   return (
     <aside className="fixed col-span-2 rounded-xl py-2 mt-4">
       <div className="flex flex-col items-center mb-8">
@@ -28,8 +34,8 @@ const LeftNavbar = () => {
         </div>
 
         <div className="ml-4 flex flex-col items-center">
-          <h2 className="text-xl font-bold">Bogdan Nikitin</h2>
-          <p className="text-gray-500">@nikitinteam</p>
+          <h2 className="text-xl font-bold">{user?.name}</h2>
+          <p className="text-gray-500">@{user?.username}</p>
         </div>
       </div>
       <nav>

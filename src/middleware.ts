@@ -5,18 +5,22 @@ export async function middleware(request: NextRequest) {
 
   const token = getTokenFromStorage(request);
 
- // Update the isPublicPath condition
-const isPublicPath = path === "/"; // Only allow access to the root route
+  // Update the isPublicPath condition
+  const isPublicPath = path === "/" ||
+    path === "/login" ||
+    path === "/signup"; // Only allow access to the root route
 
-if (token && isPublicPath) {
-  return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
-}
+  if (token && isPublicPath) {
+    return NextResponse.redirect(new URL("/dashboard", request.nextUrl)); // Redirect to dashboard if token exists
+  }
 
-if (!token && !isPublicPath) {
-  return NextResponse.redirect(new URL("/", request.nextUrl));
-}
-}
+  if (!token && !isPublicPath) {
+    return NextResponse.redirect(new URL("/", request.nextUrl)); // Redirect to root if no token and not a public path
+  }
 
+  return NextResponse.next();
+
+}
 
 function getTokenFromStorage(request: NextRequest) {
   const cookies = request.cookies;
@@ -29,5 +33,7 @@ export const config = {
   matcher: [
     "/",
     "/dashboard",
+    "/login",
+    "/signup",
   ],
 };
