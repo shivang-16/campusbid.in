@@ -46,7 +46,7 @@ export function TypewriterEffectSmoothDemo() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-[40rem]">
+        <div className="flex flex-col items-center justify-center h-[20rem] md:h-[35rem]">
             <p className="text-gray-300 text-xs sm:text-base sm:mb-4 font-light transition-opacity duration-500">
                 Your journey to growth begins here
             </p>
