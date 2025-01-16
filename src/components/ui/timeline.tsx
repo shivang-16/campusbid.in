@@ -48,9 +48,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               <h3 className="hidden md:block text-base sm:text-xl md:text-2xl md:pl-20 lg:text-3xl font-semibold md:font-bold text-transparent bg-gradient-to-r from-teal-300 via-gray-400 to-purple-200 bg-clip-text">
                 {item.title}
               </h3>
-
             </div>
-
             <div className="relative ml-4 mr-4 md:pr-4 md:pl-4 w-full">
               <h3 className="md:hidden block text-xl mb-4 text-left font-semibold text-transparent bg-gradient-to-r from-teal-200 via-gray-400 to-purple-200 bg-clip-text">
                 {item.title}
