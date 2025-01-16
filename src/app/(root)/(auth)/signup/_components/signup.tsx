@@ -171,10 +171,8 @@ const SignupPage: React.FC = () => {
               </a>
             </p>
           </form>
-
         </div>
       </div>
-
     </div>
   );
 };

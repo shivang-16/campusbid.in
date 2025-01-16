@@ -7,12 +7,17 @@ import { FiArrowRight } from "react-icons/fi";
 import { useRef } from "react";
 import { joinWaitingList } from "@/actions/user_action";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleWait = async (email: string) => {
+    setLoading(true);
     const res = await joinWaitingList(email);
+    setLoading(false);
+
     if (res.success) {
       toast.success("You are all set to go!");
     } else {
@@ -21,11 +26,10 @@ export default function Home() {
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputRef.current) {
       handleWait(inputRef.current.value);
-      inputRef.current.value = "";
     }
   };
 
@@ -73,21 +77,26 @@ export default function Home() {
 
         {/* Search Bar */}
         <div className="mt-10 flex justify-center items-center">
-          <form className="relative w-full flex max-w-lg" onSubmit={handleFormSubmit}>
+          <form className="relative w-full flex max-w-lg" onSubmit={handleSubmit}>
             <span className="absolute top-1/2 transform -translate-y-1/2 left-4 text-teal-500 font-medium text-[12px] md:text-base">
               campusbid.in/
             </span>
             <input
               type="text"
               ref={inputRef}
+              required
               className="w-full py-3 pl-28 sm:pl-44 pr-14 bg-gray-800 text-gray-200 rounded-full text-[13px] placeholder:text-[13px] md:text-base md:placeholder:text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
               placeholder="eg. example@gmail.com"
             />
             <button
               type="submit"
-              className="absolute top-1/2 transform text-sm md:text-base -translate-y-1/2 right-0 bg-transparent text-white hover:bg-teal-700 flex items-center justify-center gap-2 px-[14px] md:px-5 py-[14px] font-extrabold rounded-full hover:shadow-xl transition"
+              className="group absolute top-1/2 transform text-sm md:text-base -translate-y-1/2 right-0 bg-transparent text-white flex items-center justify-center gap-2 px-[14px] md:px-5 py-[14px] font-extrabold rounded-full transition"
             >
-              <FiArrowRight className="text-lg" />
+              {loading ? (
+                <div className="spinner-border animate-spin inline-block w-6 h-6 border-[2px] rounded-full border-t-transparent border-r-transparent"></div>
+              ) : (
+                <FiArrowRight className="text-lg transition-transform duration-150 group-hover:translate-x-2" />
+              )}
             </button>
           </form>
         </div>
@@ -101,7 +110,7 @@ export default function Home() {
       </div>
 
 
-      <div className="relative w-full h-auto rounded-lg shadow-lg overflow-hidden">
+      <div className="relative w-full h-auto rounded-lg md:pt-16 shadow-lg overflow-hidden">
         <HeroHighlightDemo />
       </div>
     </div>
