@@ -25,11 +25,7 @@ const DashboardPage = () => {
           </section>
           <div className="space-y-6 pb-6 pt-20">
             <PostList />
-
             <ShareSomething/>
-
-
-
           </div>
         </main>
         <RightSideBar />

@@ -1,5 +1,7 @@
 import React from 'react';
 import { FaPalette, FaMusic, FaUtensils, FaMountain } from 'react-icons/fa';
+import { FaLaptopCode } from "react-icons/fa";
+
 
 
 const RightSideBar = () => {
@@ -83,7 +85,7 @@ const RightSideBar = () => {
                 <h2 className="text-xl font-bold mb-4">Recommendations</h2>
                 <div className="grid grid-cols-2 gap-6">
                     <div className="flex flex-col items-center justify-center bg-blue-100 rounded-full h-28 w-h-28 hover:bg-blue-200 transition-colors duration-300 ease-in-out">
-                        <FaPalette className="text-2xl text-blue-400" />
+                        <FaLaptopCode className="text-2xl text-blue-400" />
                         <span className="text-lg font-bold mt-2">UI/UX</span>
                     </div>
                     <div className="flex flex-col items-center justify-center bg-pink-100 rounded-full h-28 w-h-28 hover:bg-pink-200 transition-colors duration-300 ease-in-out">
