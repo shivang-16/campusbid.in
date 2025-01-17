@@ -7,6 +7,7 @@ import { IoEyeSharp } from 'react-icons/io5';
 import { MdVerified } from "react-icons/md";
 import { CgMore } from "react-icons/cg";
 import { FaCrown } from "react-icons/fa6";
+import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 
 
 // Define type for the post
@@ -141,15 +142,13 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <div className={`${post.bgColor} rounded-xl p-6`}>
             <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center">
-                    <div
-                        className="relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 text-black font-bold mr-3"
-                        style={{ fontSize: "1rem" }}
-                    >
-                        {post.name[0].toUpperCase()}
-                        <FaCrown
-                            className="absolute bottom-0 left-7 text-yellow-400 text-base"
-                        />
-                    </div>
+                    <AnimatedTooltip
+                        item={{
+                            id: 2,
+                            name: post.name,
+                            image: post.avatar
+                        }}
+                    />
                     <div>
                         <h3 className="font-bold">{post.name}</h3>
                         <p className="text-gray-400 text-xs">{post.timeAgo}</p>
@@ -182,12 +181,15 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <p className="mb-4 font-medium">{post.text}</p>
             <div className="grid grid-cols-3 gap-2 mb-4">
                 {post.images.map((image, index) => (
-                    <img
-                        key={index}
-                        src={image}
-                        alt={`Post ${index + 1}`}
-                        className="rounded-lg h-52 w-full object-cover"
-                    />
+                    <>
+                        <img
+                            key={index}
+                            src={image}
+                            alt={`Post ${index + 1}`}
+                            className="rounded-lg h-52 w-full object-cover"
+                        />
+                    </>
+
                 ))}
             </div>
             <div className="flex justify-between items-center">
@@ -209,7 +211,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                     🔥Woow!!!
                 </button>
             </div>
-            
+
         </div>
     );
 };
