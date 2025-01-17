@@ -45,8 +45,8 @@ const posts: Post[] = [
         avatar: '/assets/my.jpeg',
         name: 'Piyush Joshi',
         timeAgo: '4 hours ago',
-        text: 'Hello, I am very new to this platform, hope it will help me grow further.',
-        images: ['/assets/image2.jpg', '/assets/image3.jpeg', '/assets/image1.webp'],
+        text: 'Hello, I am very new to this platform, hope it will help me grow further. What a fantastic trip to the countryside! The fresh air and serenity were unmatched. 🌻',
+        images: [],
         likes: 7981,
         comments: 493,
         views: 2024,
@@ -181,14 +181,13 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <p className="mb-4 font-medium">{post.text}</p>
             <div className="grid grid-cols-3 gap-2 mb-4">
                 {post.images.map((image, index) => (
-                    <>
+                    
                         <img
                             key={index}
                             src={image}
                             alt={`Post ${index + 1}`}
                             className="rounded-lg h-52 w-full object-cover"
                         />
-                    </>
 
                 ))}
             </div>
