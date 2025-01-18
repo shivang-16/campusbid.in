@@ -17,7 +17,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ avatar, username, followers, 
                     src='/assets/Rectangle1.png'
                     className="w-full h-56 object-cover bg-purple-100 rounded-t-3xl"
                 />
-
             </div>
             <div className='absolute bg-[#f9f6fd] rounded-t-[40px] z-10 pt-6 top-44'>
                 <div className="absolute -top-12 w-full flex">

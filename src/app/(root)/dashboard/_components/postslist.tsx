@@ -139,7 +139,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
     }, []);
 
     return (
-        <div className={`${post.bgColor} rounded-xl p-6`}>
+        <div className={`${post.bgColor} rounded-xl p-6 mb-5`}>
             <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center">
                     <AnimatedTooltip
@@ -217,11 +217,19 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
 
 const PostList: React.FC = () => (
-    <>
+    <div className="w-full">
+        <section className="  bg-opacity-80 backdrop-blur-xl sticky top-0 z-50 w-full flex items-center justify-between pt-4 pb-4 px-6 mb-3 ">
+            <h2 className="text-xl font-bold">Feeds</h2>
+            <div className="flex justify-between font-semibold gap-4 items-center text-sm">
+                <button className="text-gray-400 hover:text-blue-600">Recents</button>
+                <button className="text-gray-900 hover:text-blue-600">Friends</button>
+                <button className="text-gray-400 hover:text-blue-600">Popular</button>
+            </div>
+        </section>
         {posts.map((post, index) => (
             <PostCard key={index} post={{ ...post }} />
         ))}
-    </>
+    </div>
 );
 
 export default PostList;
