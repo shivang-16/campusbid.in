@@ -10,16 +10,14 @@ import ShareSomething from './writepost';
 
 const DashboardPage = () => {
   return (
-    <div className="min-h-screen w-full flex bg-white font-sans">
+    <div className="h-full flex bg-white font-sans ">
       <div className="flex justify-center mx-auto gap-4">
-        <LeftNavbar />
         <main className="col-span-6">
           <div className="space-y-6 pb-6 mt-4 min-w-[600px]">
             <PostList />
             <ShareSomething />
           </div>
         </main>
-        <RightSideBar />
       </div>
     </div>
   );

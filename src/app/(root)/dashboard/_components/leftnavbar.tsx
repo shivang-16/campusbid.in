@@ -18,7 +18,7 @@ const LeftNavbar = () => {
   console.log(user, "here is the user")
 
   return (
-    <aside className="sticky top-0 h-screen ">
+    <aside className="  h-screen ">
       <div className="flex flex-col items-center pt-6 mb-8">
         <div className="relative w-20 h-20">
           <Image

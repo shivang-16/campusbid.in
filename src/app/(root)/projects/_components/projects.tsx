@@ -94,7 +94,6 @@ const Projects: React.FC = () => {
 
 
     return (
-        <div className="w-full">
         <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white rounded-2xl px-6 py-8">
             {/* Header Section */}
             <header className="mb-6">
@@ -214,7 +213,6 @@ const Projects: React.FC = () => {
                     ))}
                 </div>
             </section>
-        </div>
         </div>
     );
 };

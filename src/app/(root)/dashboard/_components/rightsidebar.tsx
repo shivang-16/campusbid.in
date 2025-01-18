@@ -11,7 +11,7 @@ const RightSideBar = () => {
         { id: 3, name: "Piyush Joshi", image: "/assets/image3.jpeg" },
     ];
     return (
-        <aside className="h-screen sticky top-0 w-[300px]">
+        <aside className="h-screen w-[300px]">
             <section className="bg-white rounded-xl p-6 mb-3">
                 <h2 className="text-xl font-bold mb-4">Stories</h2>
                 <div className="flex space-x-4">
