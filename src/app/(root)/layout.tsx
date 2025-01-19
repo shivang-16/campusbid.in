@@ -115,7 +115,7 @@ export default function RootLayout({
         </>
       )} */}
       <LeftNavbar />
-      <div className="overflow-y-auto">{children}</div>
+      <div className="overflow-y-auto min-w-[600px]">{children}</div>
       <RightSideBar />
     </div>
   );
