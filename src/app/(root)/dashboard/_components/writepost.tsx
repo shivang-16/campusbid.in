@@ -181,11 +181,13 @@ const ShareSomething = () => {
                     onChange={handleFileSelect}
                     className="hidden"
                 />
+
                 {audioUrl && (
                     <div className="mt-4">
                         <audio controls src={audioUrl} />
                     </div>
                 )}
+                
                 {files.length > 0 && (
                     <div className="mt-4 p-3">
                         {files.length === 1 && (
