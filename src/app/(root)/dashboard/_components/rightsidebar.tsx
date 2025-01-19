@@ -20,22 +20,6 @@ const RightSideBar = () => {
         { id: 3, name: "What's new", image: "/assets/image3.jpeg", online: true, lastOnline: new Date() },
     ];
 
-    // Function to calculate time passed since the last online
-    const getTimePassed = (lastOnline: any) => {
-        const now = new Date();
-        const diff = now - new Date(lastOnline);
-        const minutes = Math.floor(diff / 60000);
-        const hours = Math.floor(diff / 3600000);
-
-        if (minutes < 60) {
-            return `${minutes} minutes ago`;
-        } else if (hours < 24) {
-            return `${hours} hours ago`;
-        } else {
-            return "Yesterday"
-        }
-    }
-
     return (
         <aside className="h-screen w-[300px]">
             <section className="bg-white rounded-xl p-6 mb-3">
