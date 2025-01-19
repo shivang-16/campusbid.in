@@ -12,12 +12,12 @@ const ShareSomething = () => {
     const [previews, setPreviews] = useState<string[]>([]);
     const [text, setText] = useState("");
     const [isDragOver, setIsDragOver] = useState(false);
-    const inputRef = useRef<HTMLInputElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
     const [isRecording, setIsRecording] = useState(false);
     const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const responsive = {
         desktop: {
@@ -41,7 +41,6 @@ const ShareSomething = () => {
             container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
     };
-
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -78,9 +77,8 @@ const ShareSomething = () => {
             if (event.dataTransfer.files) {
                 setFiles([...files, ...Array.from(event.dataTransfer.files)]);
             }
-        }
-        else {
-            toast.error("Please choose upto 4 images, videos or GIFs.")
+        } else {
+            toast.error("Please choose up to 4 images, videos or GIFs.");
         }
     };
 
@@ -98,11 +96,11 @@ const ShareSomething = () => {
             files.map(async (file) => {
                 const formData = new FormData();
                 formData.append('file', file);
-                console.log(formData, "hello")
+                console.log(formData, "hello");
             })
         );
-        console.log(files, "media")
-        console.log(text, "text")
+        console.log(files, "media");
+        console.log(text, "text");
     };
 
     const handleRemoveFile = (index: number) => {
@@ -110,7 +108,6 @@ const ShareSomething = () => {
         updatedFiles.splice(index, 1);
         setFiles(updatedFiles);
     };
-
 
     const startRecording = async () => {
         if (navigator.mediaDevices) {
@@ -150,15 +147,8 @@ const ShareSomething = () => {
             ref={containerRef}
             className={`w-full mx-auto rounded-3xl p-4 sticky bottom-2 ${isDragOver ? "blur-sm" : ""}`}
             style={{ backgroundColor: "#f4ecd3" }}
-
-
         >
-            <div
-                className={`flex flex-col gap-3 font-medium bg-[#f7f4ea] rounded-3xl shadow-sm px-2 `}
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-            >
+            <div className={`flex flex-col gap-3 font-medium bg-[#f7f4ea] rounded-3xl shadow-sm px-2`}>
                 <div
                     onClick={() => setIsExpanded(!isExpanded)}
                     className={`flex ${isExpanded ? "pt-3 items-start" : "items-center"} gap-3 cursor-pointer`}
@@ -200,58 +190,6 @@ const ShareSomething = () => {
                                     <IoMdCloseCircle />
                                 </button>
                             </div>
-                        )}
-
-                        {files.length === 2 && (
-                            <div className="flex gap-3">
-                                {files.map((file, index) => (
-                                    <div key={index} className="relative flex-1 h-64 bg-gray-100 border border-gray-300 shadow-sm rounded-lg overflow-hidden">
-                                        {file.type.startsWith('image/') && (
-                                            <img src={previews[index]} alt="preview" className="w-full h-full object-cover" />
-                                        )}
-                                        <button
-                                            className="absolute top-1 right-1 text-black text-2xl hover:text-gray-600 transition-all"
-                                            onClick={() => handleRemoveFile(index)}
-                                        >
-                                            <IoMdCloseCircle />
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        {files.length > 2 && (
-                            <Carousel
-                                responsive={responsive}
-                                infinite={false} // Disable infinite scrolling
-                                autoPlay={false} // No auto-play
-                                keyBoardControl={true}
-                                containerClass="carousel-container"
-                                itemClass="carousel-item-padding-40-px px-1.5"
-                                showDots={false} // Disable dots if unnecessary
-                                arrows={true} // Enable default navigation arrows
-                            >
-                                {files.map((file, index) => (
-                                    <div
-                                        key={index}
-                                        className="relative w-full h-64 bg-gray-100 border border-gray-300 shadow-sm rounded-lg overflow-hidden"
-                                    >
-                                        {file.type.startsWith("image/") && (
-                                            <img
-                                                src={previews[index]}
-                                                alt={`preview-${index}`}
-                                                className="w-full h-full object-cover"
-                                            />
-                                        )}
-                                        <button
-                                            className="absolute top-1 right-1 text-black shadow-xl rounded-full text-2xl hover:text-gray-600 transition-all"
-                                            onClick={() => handleRemoveFile(index)}
-                                        >
-                                            <IoMdCloseCircle />
-                                        </button>
-                                    </div>
-                                ))}
-                            </Carousel>
                         )}
                     </div>
                 )}

@@ -7,6 +7,7 @@ import LeftNavbar from './leftnavbar';
 import RightSideBar from './rightsidebar';
 import PostList from './postslist';
 import ShareSomething from './writepost';
+import SpillSomething from './spillmode';
 
 const DashboardPage = () => {
   return (
