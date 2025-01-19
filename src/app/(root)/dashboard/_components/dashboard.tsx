@@ -13,7 +13,7 @@ const DashboardPage = () => {
     <div className="h-full flex bg-white font-sans ">
       <div className="flex justify-center mx-auto gap-4">
         <main className="col-span-6">
-          <div className="space-y-6 pb-6 mt-4 min-w-[600px]">
+          <div className="space-y-6 pb-6 mt-4 max-w-[600px]">
             <PostList />
             <ShareSomething />
           </div>

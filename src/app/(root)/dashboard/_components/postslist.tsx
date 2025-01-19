@@ -218,7 +218,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
 const PostList: React.FC = () => (
     <div className="w-full">
-        <section className="  bg-opacity-80 backdrop-blur-xl sticky top-0 z-50 w-full flex items-center justify-between pt-4 pb-4 px-6 mb-3 ">
+        <section className="  bg-opacity-50 backdrop-blur-md sticky top-0 z-10 w-full flex items-center justify-between pt-4 pb-4 px-6 mb-3 ">
             <h2 className="text-xl font-bold">Feeds</h2>
             <div className="flex justify-between font-semibold gap-4 items-center text-sm">
                 <button className="text-gray-400 hover:text-blue-600">Recents</button>

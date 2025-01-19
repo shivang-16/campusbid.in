@@ -1,6 +1,9 @@
 import React from 'react';
 import { FaPalette, FaMusic, FaUtensils, FaMountain } from 'react-icons/fa';
 import { FaLaptopCode } from "react-icons/fa";
+import { FaUsers } from 'react-icons/fa';
+import { FaUserCircle } from 'react-icons/fa';
+
 
 
 
@@ -10,6 +13,29 @@ const RightSideBar = () => {
         { id: 2, name: "Brittni Lando", image: "/assets/image2.jpg" },
         { id: 3, name: "Piyush Joshi", image: "/assets/image3.jpeg" },
     ];
+
+    const spills = [
+        { id: 1, name: "Worlds news", image: "/assets/image1.webp", online: true, lastOnline: new Date() },
+        { id: 2, name: "Happens next", image: "/assets/image2.jpg", online: false, lastOnline: new Date('2025-01-17T12:00:00') },
+        { id: 3, name: "What's new", image: "/assets/image3.jpeg", online: true, lastOnline: new Date() },
+    ];
+
+    // Function to calculate time passed since the last online
+    const getTimePassed = (lastOnline: any) => {
+        const now = new Date();
+        const diff = now - new Date(lastOnline);
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(diff / 3600000);
+
+        if (minutes < 60) {
+            return `${minutes} minutes ago`;
+        } else if (hours < 24) {
+            return `${hours} hours ago`;
+        } else {
+            return "Yesterday"
+        }
+    }
+
     return (
         <aside className="h-screen w-[300px]">
             <section className="bg-white rounded-xl p-6 mb-3">
@@ -52,56 +78,75 @@ const RightSideBar = () => {
 
             <section className="bg-white rounded-xl px-6">
                 <h2 className="text-xl font-bold mb-4">Suggestions</h2>
-                    <ul className="space-y-3">
-                        {users.map((user) => (
-                            <li
-                                key={user.id}
-                                className="flex justify-between items-center px-3 py-1 transition-colors"
-                            >
-                                <div className="flex items-center space-x-3">
-                                    <img
-                                        src={user.image}
-                                        alt={user.name}
-                                        className="w-9 h-9 rounded-3xl"
-                                    />
-                                    <span className="text-sm font-semibold text-gray-800">
-                                        {user.name}
-                                    </span>
-                                </div>
-                                <button className="text-white font-semibold text-xs border-black border-[1px] rounded-xl px-2.5 py-[3px] bg-black hover:bg-gray-800 transition-all">
-                                    Follow
-                                </button>
-                            </li>
-                        ))}
-                        <li className="flex justify-start px-3">
-                            <p className="text-gray-500 text-sm font-medium hover:underline cursor-pointer">
-                                See all
-                            </p>
+                <ul className="space-y-3">
+                    {users.map((user) => (
+                        <li
+                            key={user.id}
+                            className="flex justify-between items-center px-3 py-1 transition-colors"
+                        >
+                            <div className="flex items-center space-x-3">
+                                <img
+                                    src={user.image}
+                                    alt={user.name}
+                                    className="w-9 h-9 rounded-3xl"
+                                />
+                                <span className="text-sm font-semibold text-gray-800">
+                                    {user.name}
+                                </span>
+                            </div>
+                            <button className="text-white font-semibold text-xs border-black border-[1px] rounded-xl px-2.5 py-[3px] bg-black hover:bg-gray-800 transition-all">
+                                Follow
+                            </button>
                         </li>
-                    </ul>
+                    ))}
+                    <li className="flex justify-start px-3">
+                        <p className="text-gray-500 text-sm font-medium hover:underline cursor-pointer">
+                            See all
+                        </p>
+                    </li>
+                </ul>
             </section>
 
             <section className="bg-white px-6 py-6">
-                <h2 className="text-xl font-bold mb-4">Recommendations</h2>
-                <div className="grid grid-cols-2 gap-6">
-                    <div className="flex flex-col items-center justify-center bg-blue-100 rounded-full h-28 w-h-28 hover:bg-blue-200 transition-colors duration-300 ease-in-out">
-                        <FaLaptopCode className="text-2xl text-blue-400" />
-                        <span className="text-lg font-bold mt-2">UI/UX</span>
-                    </div>
-                    <div className="flex flex-col items-center justify-center bg-pink-100 rounded-full h-28 w-h-28 hover:bg-pink-200 transition-colors duration-300 ease-in-out">
-                        <FaMusic className="text-2xl text-pink-400" />
-                        <span className="text-lg font-bold mt-2">Music</span>
-                    </div>
-                    <div className="flex flex-col items-center justify-center bg-cover bg-orange-200 bg-center h-28 w-h-28 rounded-full hover:opacity-90 transition-opacity duration-300 ease-in-out" style={{ backgroundImage: "url('/path-to-cooking-image.jpg')" }}>
-                        <FaUtensils className="text-2xl text-orange-400" />
-                        <span className="text-lg font-bold mt-2">Cooking</span>
-                    </div>
-                    <div className="flex flex-col items-center justify-center bg-purple-100 rounded-full h-28 w-h-28 hover:bg-purple-200 transition-colors duration-300 ease-in-out">
-                        <FaMountain className="text-2xl text-purple-400" />
-                        <span className="text-lg font-bold mt-2">Hiking</span>
-                    </div>
-                </div>
+                <h2 className="text-xl font-bold mb-4">Top Spills</h2>
+                <ul className="space-y-3">
+                    {spills.map((user) => (
+                        <li
+                            key={user.id}
+                            className="flex justify-between items-center px-3 py-1 transition-colors"
+                        >
+                            <div className="flex items-center space-x-4">
+                                <img
+                                    src={user.image}
+                                    alt={user.name}
+                                    className="w-10 h-10 rounded-full border-2 border-gray-300"
+                                />
+                                <span className="text-sm font-semibold text-gray-800">{user.name}</span>
+                            </div>
+                            <div className="flex items-center space-x-3">
+                                {/* Online status */}
+                                {user.online ? (
+                                    <div className="h-2 w-2 bg-green-500 shadow-green-500 shadow-md rounded-full animate-pulse" title="Online"></div>
+                                ) : (
+                                    <div className="h-2 w-2 bg-red-500 rounded-full" title="Offline"></div>
+                                )}
+                                {/* Join button */}
+                                <button className="text-white font-semibold text-xs px-3 py-1 bg-black rounded-2xl hover:bg-gray-800 transition-all">
+                                    Join
+                                </button>
+                            </div>
+                        </li>
+                    ))}
+                    <li className="flex justify-start px-3">
+                        <p className="text-blue-600 text-sm font-medium hover:underline cursor-pointer">
+                            See all
+                        </p>
+                    </li>
+                </ul>
             </section>
+
+
+
         </aside>
     );
 };
