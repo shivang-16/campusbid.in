@@ -11,7 +11,7 @@ interface UserProfileProps {
 
 const UserProfile: React.FC<UserProfileProps> = ({ avatar, username, followers, following, bio, photos }) => {
     return (
-        <div className="max-w-[90%] relative mx-auto bg-blue-50 rounded-3xl ">
+        <div className="w-[600px] relative mx-auto bg-blue-50 rounded-3xl ">
             <div>
                 <img
                     src='/assets/Rectangle1.png'

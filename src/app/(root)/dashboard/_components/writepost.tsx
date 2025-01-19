@@ -1,7 +1,10 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import toast from "react-hot-toast";
 import { FaFolder, FaImage, FaMapMarkerAlt, FaGlobe, FaSmile, FaUserCircle } from "react-icons/fa";
-import axios from 'axios';
+import { IoMdCloseCircle } from "react-icons/io";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const ShareSomething = () => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -11,6 +14,30 @@ const ShareSomething = () => {
     const [isDragOver, setIsDragOver] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+
+    const responsive = {
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 2,
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 464 },
+            items: 2,
+        },
+        mobile: {
+            breakpoint: { max: 464, min: 0 },
+            items: 1,
+        },
+    };
+
+    const scrollContainer = (direction: number) => {
+        const container = document.querySelector('.relative.w-full.h-full.overflow-x-auto') as HTMLElement;
+        if (container) {
+            const scrollAmount = direction * (container.offsetWidth / 2); // Scroll half the container width
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    };
+
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -27,11 +54,8 @@ const ShareSomething = () => {
     }, []);
 
     useEffect(() => {
-        // Generate previews for image files
         const newPreviews = files.map(file => URL.createObjectURL(file));
         setPreviews(newPreviews);
-
-        // Clean up object URLs when the component unmounts
         return () => {
             newPreviews.forEach(url => URL.revokeObjectURL(url));
         };
@@ -46,8 +70,13 @@ const ShareSomething = () => {
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         setIsDragOver(false);
-        if (event.dataTransfer.files) {
-            setFiles([...files, ...Array.from(event.dataTransfer.files)]);
+        if (event.dataTransfer.files.length <= 4) {
+            if (event.dataTransfer.files) {
+                setFiles([...files, ...Array.from(event.dataTransfer.files)]);
+            }
+        }
+        else {
+            toast.error("Please choose upto 4 images, videos or GIFs.")
         }
     };
 
@@ -65,13 +94,9 @@ const ShareSomething = () => {
             files.map(async (file) => {
                 const formData = new FormData();
                 formData.append('file', file);
-
                 console.log(formData, "hello")
-        
             })
-
         );
-
         console.log(files, "media")
         console.log(text, "text")
     };
@@ -85,11 +110,13 @@ const ShareSomething = () => {
     return (
         <div
             ref={containerRef}
-            className="w-full mx-auto rounded-3xl p-4 sticky bottom-2"
+            className={`w-full mx-auto rounded-3xl p-4 sticky bottom-2 ${isDragOver ? "blur-sm" : ""}`}
             style={{ backgroundColor: "#f4ecd3" }}
+
+
         >
             <div
-                className={`flex flex-col gap-3 font-medium bg-[#f7f4ea] rounded-3xl shadow-sm px-2 ${isDragOver ? "blur-sm" : ""}`}
+                className={`flex flex-col gap-3 font-medium bg-[#f7f4ea] rounded-3xl shadow-sm px-2 `}
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -115,21 +142,76 @@ const ShareSomething = () => {
                     multiple
                     onChange={handleFileSelect}
                     className="hidden"
-                    ref={inputRef}
                 />
-                <div className="flex gap-2 flex-wrap mt-3">
-                    {files.map((file, index) => (
-                        <div key={index} className="relative w-16 h-16 bg-gray-200 flex items-center justify-center rounded-lg">
-                            {file.type.startsWith('image/') && <img src={previews[index]} alt="preview" className="absolute w-full h-full object-cover rounded-lg" />}
-                            <button
-                                className="absolute top-0 right-0 bg-red-500 text-white text-xs p-1 rounded-full"
-                                onClick={() => handleRemoveFile(index)}
+                {files.length > 0 && (
+                    <div className="mt-4 p-3">
+                        {files.length === 1 && (
+                            <div className="relative w-full h-64 bg-gray-100 border border-gray-300 shadow-sm rounded-lg overflow-hidden">
+                                {files[0].type.startsWith('image/') && (
+                                    <img src={previews[0]} alt="preview" className="w-full h-full object-cover" />
+                                )}
+                                <button
+                                    className="absolute top-1 right-1 text-black text-2xl hover:text-gray-600 transition-all"
+                                    onClick={() => handleRemoveFile(0)}
+                                >
+                                    <IoMdCloseCircle />
+                                </button>
+                            </div>
+                        )}
+
+                        {files.length === 2 && (
+                            <div className="flex gap-3">
+                                {files.map((file, index) => (
+                                    <div key={index} className="relative flex-1 h-64 bg-gray-100 border border-gray-300 shadow-sm rounded-lg overflow-hidden">
+                                        {file.type.startsWith('image/') && (
+                                            <img src={previews[index]} alt="preview" className="w-full h-full object-cover" />
+                                        )}
+                                        <button
+                                            className="absolute top-1 right-1 text-black text-2xl hover:text-gray-600 transition-all"
+                                            onClick={() => handleRemoveFile(index)}
+                                        >
+                                            <IoMdCloseCircle />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {files.length > 2 && (
+                            <Carousel
+                                responsive={responsive}
+                                infinite={false} // Disable infinite scrolling
+                                autoPlay={false} // No auto-play
+                                keyBoardControl={true}
+                                containerClass="carousel-container"
+                                itemClass="carousel-item-padding-40-px px-1.5"
+                                showDots={false} // Disable dots if unnecessary
+                                arrows={true} // Enable default navigation arrows
                             >
-                                ✕
-                            </button>
-                        </div>
-                    ))}
-                </div>
+                                {files.map((file, index) => (
+                                    <div
+                                        key={index}
+                                        className="relative w-full h-64 bg-gray-100 border border-gray-300 shadow-sm rounded-lg overflow-hidden"
+                                    >
+                                        {file.type.startsWith("image/") && (
+                                            <img
+                                                src={previews[index]}
+                                                alt={`preview-${index}`}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        )}
+                                        <button
+                                            className="absolute top-1 right-1 text-black shadow-xl rounded-full text-2xl hover:text-gray-600 transition-all"
+                                            onClick={() => handleRemoveFile(index)}
+                                        >
+                                            <IoMdCloseCircle />
+                                        </button>
+                                    </div>
+                                ))}
+                            </Carousel>
+                        )}
+                    </div>
+                )}
             </div>
             <div className="flex items-center justify-between mt-4">
                 <div className="flex items-center gap-6 font-medium text-gray-800">
@@ -147,19 +229,10 @@ const ShareSomething = () => {
                         <FaImage />
                         <span className="text-sm">Image</span>
                     </div>
-                    <div className="flex items-center gap-2 cursor-pointer hover:text-black transition-colors">
-                        <FaMapMarkerAlt />
-                        <span className="text-sm">Location</span>
-                    </div>
-                    <div className="flex items-center gap-2 cursor-pointer hover:text-black transition-colors">
-                        <FaGlobe />
-                        <span className="text-sm">Public</span>
-                    </div>
                 </div>
                 <button
                     className="bg-black text-white font-medium text-sm px-4 py-1.5 rounded-full hover:bg-gray-800 transition-colors"
-                    onClick={handleCreatePost}
-                >
+                    onClick={handleCreatePost}>
                     Post
                 </button>
             </div>

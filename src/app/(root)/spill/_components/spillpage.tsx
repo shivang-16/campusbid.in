@@ -6,15 +6,15 @@ import SpillComponent from './spill';
 
 const SpillPage = () => {
     return (
-        <div className="min-h-screen bg-white font-sans pl-48 pr-32">
-            <div className="grid grid-cols-12 gap-4">
-                <main className="col-span-6 relative left-[265px]">
-                    <div className=" pb-6 pt-4">
+        <div className="h-full bg-white font-sans ">
+            <div className="flex justify-center gap-4">
+                <main className="col-span-6">
+                    <div className="space-y-6 pb-6 mt-4 max-w-[600px]">
                         <SpillComponent/>
                     </div>
                 </main>
-            </div >
-        </div >
+            </div>
+        </div>
     );
 };
 

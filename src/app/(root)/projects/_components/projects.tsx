@@ -94,13 +94,13 @@ const Projects: React.FC = () => {
 
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white rounded-2xl px-6 py-8">
+        <div className="min-h-screen w-[600px] bg-gradient-to-b from-purple-50 to-white rounded-2xl px-6 py-8">
             {/* Header Section */}
             <header className="mb-6">
                 <div className="flex justify-between items-center">
                     <div className="flex  flex-col justify-between items-start">
-                        <h1 className=" text-xl text-gray-700 font-semibold">Welcome Back</h1>
-                        <p className="text-sm text-gray-400 font-semibold">Piyush Joshi ! 👋</p>
+                        <h1 className=" text-3xl text-gray-800 font-bold">Welcome Back</h1>
+                        <p className="text-base text-gray-500 font-bold">Piyush Joshi ! 👋</p>
                     </div>
                     <img
                         src="/assets/my.jpeg" // Replace with profile image
@@ -113,7 +113,7 @@ const Projects: React.FC = () => {
             {/* Recent Activity Section */}
             <section className="mb-4">
                 <div className="flex justify-between items-center">
-                    <h2 className="text-lg font-semibold text-gray-600">Top Projects</h2>
+                    <h2 className="text-xl font-bold text-gray-700">Top Projects</h2>
                 </div>
 
                 <div className="py-3">
@@ -140,7 +140,7 @@ const Projects: React.FC = () => {
             {/* Today's Task Section */}
             <section>
                 <div className="flex justify-between items-center">
-                    <h2 className="text-lg font-semibold text-gray-600">Special mentions</h2>
+                    <h2 className="text-xl font-bold text-gray-700">Special mentions</h2>
                 </div>
 
                 <div className="mt-4 space-y-4">

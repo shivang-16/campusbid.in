@@ -18,8 +18,8 @@ const LeftNavbar = () => {
   console.log(user, "here is the user")
 
   return (
-    <aside className="  h-screen ">
-      <div className="flex flex-col items-center pt-6 mb-8">
+    <aside className="  h-screen pr-6">
+      <div className="flex flex-col items-center pt-6  mb-8">
         <div className="relative w-20 h-20">
           <Image
             src="/assets/favicon.ico"
