@@ -15,26 +15,10 @@ const RightSideBar = () => {
     ];
 
     const spills = [
-        { id: 1, name: "Worlds news", image: "/assets/image1.webp", online: true, lastOnline: new Date() },
-        { id: 2, name: "Happens next", image: "/assets/image2.jpg", online: false, lastOnline: new Date('2025-01-17T12:00:00') },
-        { id: 3, name: "What's new", image: "/assets/image3.jpeg", online: true, lastOnline: new Date() },
+        { id: 1, name: "News", image: "/assets/image1.webp", online: true, lastOnline: new Date(), bgColor: "bg-yellow-50" },
+        { id: 2, name: "Happen", image: "/assets/image2.jpg", online: false, lastOnline: new Date('2025-01-17T12:00:00'), bgColor: "bg-pink-50" },
+        { id: 3, name: "Newest", image: "/assets/image3.jpeg", online: true, lastOnline: new Date(), bgColor: "bg-blue-50" },
     ];
-
-    // Function to calculate time passed since the last online
-    const getTimePassed = (lastOnline: any) => {
-        const now = new Date();
-        const diff = now - new Date(lastOnline);
-        const minutes = Math.floor(diff / 60000);
-        const hours = Math.floor(diff / 3600000);
-
-        if (minutes < 60) {
-            return `${minutes} minutes ago`;
-        } else if (hours < 24) {
-            return `${hours} hours ago`;
-        } else {
-            return "Yesterday"
-        }
-    }
 
     return (
         <aside className="h-screen w-[300px]">
@@ -88,7 +72,7 @@ const RightSideBar = () => {
                                 <img
                                     src={user.image}
                                     alt={user.name}
-                                    className="w-9 h-9 rounded-3xl"
+                                    className="w-10 h-10 rounded-full border-[2px] border-gray-200"
                                 />
                                 <span className="text-sm font-semibold text-gray-800">
                                     {user.name}
@@ -107,46 +91,60 @@ const RightSideBar = () => {
                 </ul>
             </section>
 
-            <section className="bg-white px-6 py-6">
+            <section className="bg-white px-6 py-8">
                 <h2 className="text-xl font-bold mb-4">Top Spills</h2>
-                <ul className="space-y-3">
-                    {spills.map((user) => (
-                        <li
+                <div className="grid grid-cols-6 gap-1">
+                    {spills.map((user, index) => (
+                        <div
                             key={user.id}
-                            className="flex justify-between items-center px-3 py-1 transition-colors"
+                            className={`w-full rounded-lg ${user.bgColor} flex flex-col justify-between transition-transform transform hover:scale-105 hover:shadow-md ${index === 0
+                                ? "col-span-4 row-span-2 h-[220px] px-4 py-8" // Large first image
+                                : index === 1
+                                    ? "col-span-2 row-span-1 h-[105px] px-2 py-4" // Medium image
+                                    : "col-span-2 row-span-1 h-[105px] px-2 py-4" // Small images
+                                }`}
                         >
-                            <div className="flex items-center space-x-4">
+                            <div className="flex flex-col items-start h-full justify-between">
                                 <img
                                     src={user.image}
                                     alt={user.name}
-                                    className="w-10 h-10 rounded-full border-2 border-gray-300"
+                                    className={`rounded-full border-[3px] border-gray-300 ${index === 0
+                                        ? "w-24 h-24" // Large first image
+                                        : "w-10 h-10" // Smaller images
+                                        }`}
                                 />
-                                <span className="text-sm font-semibold text-gray-800">{user.name}</span>
+                                <div className='flex items-center gap-3'>
+                                    <span className={`block ${index === 0 ? "text-lg" : "text-xs"} font-semibold text-gray-600`}>
+                                        {user.name}
+                                    </span>
+                                    <div className="flex items-center space-x-2">
+                                        {user.online ? (
+                                            <div
+                                                className={` ${index === 0
+                                                    ? " h-3 w-3" // Large first image
+                                                    : "w-1.5 h-1.5"}  bg-green-500 shadow-md rounded-full animate-pulse`}
+                                                title="Online"
+                                            ></div>
+                                        ) : (
+                                            <div className={`${index === 0
+                                                ? " h-3 w-3" // Large first image
+                                                : "w-1.5 h-1.5"} bg-red-500 rounded-full`} title="Offline"></div>
+                                        )}
+                                        {/* <button className="text-white text-xs font-medium px-4 py-1.5 bg-black rounded-full hover:bg-gray-900 transition-all">
+                                            Join
+                                        </button> */}
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex items-center space-x-3">
-                                {/* Online status */}
-                                {user.online ? (
-                                    <div className="h-2 w-2 bg-green-500 shadow-green-500 shadow-md rounded-full animate-pulse" title="Online"></div>
-                                ) : (
-                                    <div className="h-2 w-2 bg-red-500 rounded-full" title="Offline"></div>
-                                )}
-                                {/* Join button */}
-                                <button className="text-white font-semibold text-xs px-3 py-1 bg-black rounded-2xl hover:bg-gray-800 transition-all">
-                                    Join
-                                </button>
-                            </div>
-                        </li>
+                        </div>
                     ))}
-                    <li className="flex justify-start px-3">
+                    <div className="col-span-6 flex justify-center mt-4">
                         <p className="text-blue-600 text-sm font-medium hover:underline cursor-pointer">
                             See all
                         </p>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </section>
-
-
-
         </aside>
     );
 };
