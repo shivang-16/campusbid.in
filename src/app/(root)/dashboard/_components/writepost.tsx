@@ -1,4 +1,9 @@
 "use client";
+import { getSignedUrls } from "@/actions/files_action";
+import { createPost, getPosts } from "@/actions/post_action";
+import { uploadImageToS3 } from "@/actions/s3_actions";
+import { useAppDispatch } from "@/redux/hooks";
+import { postsData } from "@/redux/slices/postSlice";
 import React, { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { FaFolder, FaImage, FaMicrophone, FaStop, FaSmile, FaUserCircle } from "react-icons/fa";
@@ -18,6 +23,7 @@ const ShareSomething = () => {
     const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
     const [audioUrl, setAudioUrl] = useState<string | null>(null);
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+    const dispatch = useAppDispatch();
 
     const responsive = {
         desktop: {
@@ -94,16 +100,59 @@ const ShareSomething = () => {
     };
 
     const handleCreatePost = async () => {
-        const media = await Promise.all(
-            files.map(async (file) => {
-                const formData = new FormData();
-                formData.append('file', file);
-                console.log(formData, "hello")
-            })
-        );
-        console.log(files, "media")
-        console.log(text, "text")
+        try {
+            // Format files for signed URL request
+            const formattedFiles = files.map((file) => ({
+                fileName: file.name,
+                fileSize: file.size,
+                fileType: file.type
+            }));
+    
+            // Fetch signed URLs
+            const UrlsResponse = await getSignedUrls(formattedFiles) as { files: { putUrl: string }[] };
+
+            if (!UrlsResponse) {
+                throw new Error("Failed to fetch signed URLs.");
+            }
+    
+            // Upload files to S3 using the signed URLs
+            const uploadFiles = UrlsResponse.files.map((signedUrl, index) => {
+                const file = files[index];
+                return uploadImageToS3(file, signedUrl.putUrl);
+            });
+    
+            // Await all uploads to complete
+            await Promise.all(uploadFiles);
+
+    
+            // Prepare data for creating post
+            const formattedData = {
+                text,
+                files: UrlsResponse.files,
+                type: "post"
+            };
+    
+            // Create the post
+            const response = await createPost(formattedData);
+            if (!response || !response.success) {
+                throw new Error("Failed to create post.");
+            }
+        
+            toast.success("Post created successfully!");
+            const res = await getPosts();
+            dispatch(postsData(res.posts));
+    
+            // Reset states after successful post
+            setText('');
+            setFiles([]);
+            setPreviews([]);
+            setIsExpanded(false);
+        } catch (error) {
+            console.error("Error creating post:", error);
+            toast.error("Failed to create post.");
+        }
     };
+
 
     const handleRemoveFile = (index: number) => {
         const updatedFiles = [...files];

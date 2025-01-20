@@ -7,6 +7,7 @@ export const createPost = async (data: any) => {
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
             },
+            credentials: "include",
         });
         const res = await response.json();
         return res;
@@ -22,6 +23,7 @@ export const getPosts = async (page?: number, limit?: number) => {
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
             },
+            credentials: "include",
         });
         const res = await response.json();
         return res;

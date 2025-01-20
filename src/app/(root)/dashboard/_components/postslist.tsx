@@ -12,12 +12,21 @@ import { getPosts } from "@/actions/post_action";
 import { useAppDispatch } from "@/redux/hooks";
 import { postsData } from "@/redux/slices/postSlice";
 import Modal from "react-modal";
+import { UserDataProps } from "@/types";
 
 interface Post {
     _id: string;
-    user: string;
+    user: UserDataProps;
     text: string;
-    files: string[];
+    files: {
+        fileName: string;
+        fileUrl: string;
+        key: string;
+        fileType: string;
+        fileSize: number;
+        uploadedAt: Date;
+    }[];
+    comments: string[];
     type: string;
     createdAt: string;
     updatedAt: string;
@@ -80,7 +89,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, bgColor }) => {
                         }}
                     />
                     <div>
-                        <h3 className="font-bold">User Name</h3>
+                        <h3 className="font-bold">{post?.user?.username}</h3>
                         <p className="text-gray-400 text-xs">{new Date(post.createdAt).toLocaleString()}</p>
                     </div>
                 </div>
@@ -98,7 +107,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, bgColor }) => {
                     {post.files.map((file, index) => (
                         <img
                             key={index}
-                            src={file}
+                            src={file.fileUrl}
                             alt={`Post file ${index + 1}`}
                             className="rounded-lg h-52 w-full object-cover"
                         />
