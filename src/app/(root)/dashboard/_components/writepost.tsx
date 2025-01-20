@@ -10,6 +10,7 @@ import { FaFolder, FaImage, FaMicrophone, FaStop, FaSmile, FaUserCircle } from "
 import { IoMdCloseCircle } from "react-icons/io";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Tiptap from "@/components/ui/tiptap";
 
 const ShareSomething = () => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -213,7 +214,7 @@ const ShareSomething = () => {
                     className={`flex ${isExpanded ? "pt-3 items-start" : "items-center"} gap-3 cursor-pointer`}
                 >
                     <FaUserCircle className="text-gray-600 text-2xl" />
-                    <textarea
+                    {/* <textarea
                         placeholder="Share something..."
                         className={`resize-none flex-grow flex text-sm bg-transparent focus:outline-none placeholder:text-gray-500 transition-all duration-300 ${isExpanded
                             ? "h-40 items-start leading-4"
@@ -221,7 +222,8 @@ const ShareSomething = () => {
                             }`}
                         value={text}
                         onChange={(e) => setText(e.target.value)}
-                    />
+                    /> */}
+                    <Tiptap value={text} setText={setText} />
                     <FaSmile className="text-gray-600 text-xl cursor-pointer" />
                 </div>
                 <input
