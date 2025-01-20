@@ -11,9 +11,9 @@ import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import { getPosts } from "@/actions/post_action";
 import { useAppDispatch } from "@/redux/hooks";
 import { postsData } from "@/redux/slices/postSlice";
+import Modal from "react-modal";
 import { UserDataProps } from "@/types";
 
-// Define type for the post
 interface Post {
     _id: string;
     user: UserDataProps;
@@ -43,9 +43,42 @@ interface PostCardProps {
 }
 
 
+
 const PostCard: React.FC<PostCardProps> = ({ post, bgColor }) => {
+
+    const [emojiMenuOpen, setEmojiMenuOpen] = useState<{ [key: string]: boolean }>({});
+    const [showAllEmojis, setShowAllEmojis] = useState(false);
+    const [selectedPostIndex, setSelectedPostIndex] = useState<string | null>(null);
+
+    const emojis = ["🔥", "👏", "😂", "😢", "😊", "+"];
+
+    const handleButtonClick = (postId: string) => {
+        setEmojiMenuOpen((prev) => ({
+            ...prev,
+            [postId]: !prev[postId],
+        }));
+    };
+
+    const handleEmojiClick = (emoji: string, postId: string) => {
+        alert(`You reacted to post with emoji: ${emoji}`);
+        setEmojiMenuOpen((prev) => ({
+            ...prev,
+            [postId]: false,
+        }));
+    };
+
+    const handleShowAllEmojis = (postId: string) => {
+        setSelectedPostIndex(postId);
+        setShowAllEmojis(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowAllEmojis(false);
+        setSelectedPostIndex(null);
+    };
+
     return (
-        <div className={`bg-[${bgColor}] rounded-xl p-6 mb-5`}>
+        <div className={`bg-[${bgColor}] rounded-xl p-6 mb-5`} style={{backgroundColor: `${post.bgColor}`}}>
             <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center">
                     <AnimatedTooltip
@@ -82,6 +115,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, bgColor }) => {
                 </div>
             )}
             <div className="flex justify-between items-center">
+                {/* Reactions */}
                 <div className="flex items-center space-x-4">
                     <div className="flex items-center text-gray-600">
                         <AiOutlineHeart className="mr-1" /> 0 {/* Placeholder for likes */}
@@ -90,14 +124,38 @@ const PostCard: React.FC<PostCardProps> = ({ post, bgColor }) => {
                         <AiOutlineComment className="mr-1" /> 0 {/* Placeholder for comments */}
                     </div>
                     <div className="flex items-center text-gray-600">
-                        <span className="mr-1">
-                            <IoEyeSharp />
-                        </span> 0 {/* Placeholder for views */}
+                        <IoEyeSharp className="mr-1" /> 0 {/* Placeholder for views */}
                     </div>
                 </div>
-                <button className="bg-pink-400 text-white text-sm font-semibold px-3 py-1 rounded-2xl">
-                    🔥Woow!!!
-                </button>
+
+                {/* Emoji Button */}
+                <div className="relative">
+                    <button
+                        className="bg-pink-400 text-white text-sm font-semibold px-3 py-1 rounded-2xl"
+                        onClick={() => handleButtonClick(post._id)}
+                    >
+                        🔥Woow!!!
+                    </button>
+
+                    {/* Emoji Menu */}
+                    {emojiMenuOpen[post._id] && (
+                        <div className="absolute top-full -left-20 mt-2 bg-white shadow-lg rounded-lg p-2 flex flex-row gap-2 z-10">
+                            {emojis.map((emoji, emojiIndex) => (
+                                <button
+                                    key={emojiIndex}
+                                    className="text-lg hover:scale-110 transition-transform"
+                                    onClick={() =>
+                                        emoji === "+"
+                                            ? handleShowAllEmojis(post._id)
+                                            : handleEmojiClick(emoji, post._id)
+                                    }
+                                >
+                                    {emoji}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
