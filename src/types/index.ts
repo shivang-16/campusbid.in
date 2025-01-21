@@ -1,4 +1,5 @@
 export type UserDataProps = {
+    _id: string;
     name: string;
     username: string;
     email: string;

@@ -88,7 +88,7 @@ export default function RootLayout({
 
   return (
     <div
-      className={`h-screen overflow-hidden flex justify-center relative z-[1000]
+      className={`h-screen overflow-hidden flex justify-center relative
         }`}
     // onDragEnter={handleDragEnter}
     // onDragOver={handleDragOver}

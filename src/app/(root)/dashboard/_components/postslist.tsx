@@ -3,16 +3,18 @@
 import React, { useState, useEffect } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { AiOutlineHeart, AiOutlineComment } from "react-icons/ai";
+import { BiDownvote, BiSolidDownvote, BiSolidUpvote, BiUpvote } from "react-icons/bi";
 import { IoEyeSharp } from "react-icons/io5";
 import { MdVerified } from "react-icons/md";
 import { CgMore } from "react-icons/cg";
 import { FaCrown } from "react-icons/fa6";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
-import { getPosts } from "@/actions/post_action";
-import { useAppDispatch } from "@/redux/hooks";
+import { checkVote, getPosts, votePost } from "@/actions/post_action";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { postsData } from "@/redux/slices/postSlice";
 import Modal from "react-modal";
 import { UserDataProps } from "@/types";
+import ShareSomething from "./writepost";
 
 interface Post {
   _id: string;
@@ -27,6 +29,12 @@ interface Post {
     uploadedAt: Date;
   }[];
   comments: string[];
+  analytics: {
+    upvotes: number;
+    downvotes: number;
+    comments: number;
+  };
+  userVote: "upvote" | "downvote" | null;
   type: string;
   createdAt: string;
   updatedAt: string;
@@ -40,16 +48,22 @@ interface Post {
 interface PostCardProps {
   post: Post;
   bgColor: string;
-}
+  onCommentClick: (post: Post) => void; // New prop for handling comment click
+  }
 
-const PostCard: React.FC<PostCardProps> = ({ post, bgColor }) => {
+const PostCard: React.FC<PostCardProps> = ({ post, bgColor, onCommentClick }) => {
   const [emojiMenuOpen, setEmojiMenuOpen] = useState<{
     [key: string]: boolean;
   }>({});
+  const [votes, setVotes] = useState({ upvotes: post.analytics.upvotes, downvotes: post.analytics.downvotes });
+  const [voted, setVoted] = useState<"upvote" | "downvote" | null>(post?.userVote || null);
   const [showAllEmojis, setShowAllEmojis] = useState(false);
   const [selectedPostIndex, setSelectedPostIndex] = useState<string | null>(
     null
   );
+
+  const user = useAppSelector((state) => state.user.user);
+  const userId = user?._id;
 
   const emojis = ["🔥", "👏", "😂", "😢", "😊", "+"];
 
@@ -76,6 +90,34 @@ const PostCard: React.FC<PostCardProps> = ({ post, bgColor }) => {
   const handleCloseModal = () => {
     setShowAllEmojis(false);
     setSelectedPostIndex(null);
+  };
+
+//   useEffect(() => {
+//     (async () => {
+//         if(userId) {
+//             const checkRes = await checkVote(post._id, userId);
+//             if (checkRes.success) {
+//               setVoted(checkRes.vote.type);
+//             }
+//         }
+     
+//     })();
+//   }, []);
+
+  const handleVote = async (type: "upvote" | "downvote") => {
+    if (!userId) return alert("Please login to vote");
+
+    if (voted === type) return; // Prevent repeated votes
+
+    const res = await votePost(post._id, userId, type);
+    if (res.success) {
+      setVotes((prevVotes) => ({
+        ...prevVotes,
+        upvotes: prevVotes.upvotes + (type === "upvote" ? 1 : 0),
+        downvotes: prevVotes.downvotes + (type === "downvote" ? 1 : 0),
+      }));
+      setVoted(type);
+    }
   };
 
   return (
@@ -124,12 +166,22 @@ const PostCard: React.FC<PostCardProps> = ({ post, bgColor }) => {
       <div className="flex justify-between items-center">
         {/* Reactions */}
         <div className="flex items-center space-x-4">
-          <div className="flex items-center text-gray-600">
-            <AiOutlineHeart className="mr-1" /> 0 {/* Placeholder for likes */}
-          </div>
-          <div className="flex items-center text-gray-600">
-            <AiOutlineComment className="mr-1" /> 0{" "}
-            {/* Placeholder for comments */}
+          <button
+            onClick={() => handleVote("upvote")}
+            className="flex items-center text-gray-600"
+          >
+            {voted === "upvote" ? (
+              <BiSolidUpvote className="mr-1" />
+            ) : (
+              <BiUpvote className="mr-1" />
+            )}
+            {votes.upvotes}
+          </button>
+          <div className="flex items-center text-gray-600 hover:cursor-pointer"
+                      onClick={() => onCommentClick(post)} // Handle comment click
+
+          >
+            <AiOutlineComment className="mr-1" /> {post?.analytics?.comments || 0}
           </div>
           <div className="flex items-center text-gray-600">
             <IoEyeSharp className="mr-1" /> 0 {/* Placeholder for views */}
@@ -164,13 +216,15 @@ const PostCard: React.FC<PostCardProps> = ({ post, bgColor }) => {
             </div>
           )}
         </div>
+        </div>
       </div>
-    </div>
   );
 };
 
 const PostList: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -182,9 +236,20 @@ const PostList: React.FC = () => {
     fetchPosts();
   }, []);
 
+  const handleCommentClick = (post: Post) => {
+    setSelectedPost(post);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPost(null);
+  };
+
+
   return (
     <div className="w-full">
-      <section className="bg-opacity-50 backdrop-blur-md sticky top-0 z-10 w-full flex items-center justify-between pt-4 pb-4 px-6 mb-3">
+      <section className="bg-opacity-50 backdrop-blur-md sticky top-0 w-full flex items-center justify-between pt-4 pb-4 px-6 mb-3">
         <h2 className="text-xl font-bold">Feeds</h2>
         <div className="flex justify-between font-semibold gap-4 items-center text-sm">
           <button className="text-gray-400 hover:text-blue-600">Recents</button>
@@ -193,8 +258,21 @@ const PostList: React.FC = () => {
         </div>
       </section>
       {posts.map((post) => (
-        <PostCard key={post._id} post={post} bgColor={post?.bgColor} />
+        <PostCard key={post._id} post={post} bgColor={post?.bgColor} onCommentClick={handleCommentClick} />
       ))}
+  {isModalOpen && selectedPost && (
+  <Modal
+    isOpen={isModalOpen}
+    onRequestClose={closeModal}
+    ariaHideApp={false}
+    className="fixed inset-0 z-[9999] bg-black bg-opacity-50 justify-center flex" // Modal container with fixed positioning
+  >
+    <div className="relative z-[10000] p-4 rounded-lg w-full sm:w-3/4 md:w-1/2 lg:w-1/3">
+      {/* Modal content with higher z-index */}
+      <ShareSomething isModal={true} post={selectedPost} />
+    </div>
+  </Modal>
+)}
     </div>
   );
 };
